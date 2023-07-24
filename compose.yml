@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+# MongoDB Services
+  mongo_db:
+    container_name: db_container
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017 # Corrected port mapping from 2717 to 27017
+    volumes:
+      - mongo_db:/data/db
+    networks:
+      - mongo-network
+
+# MongoDB GUI
+  mongo-express:
+    container_name: express_container
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo_db
+      - ME_CONFIG_MONGODB_PORT=27017
+    depends_on:
+      - mongo_db
+    networks:
+      - mongo-network
+    
+
+#Node API service
+  api:
+    build: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo_db
+    networks:
+      - mongo-network
+
+networks:
+  mongo-network:
+    driver: bridge
+
+volumes:
+  mongo_db: {}
