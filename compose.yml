@@ -4,7 +4,7 @@ services:
 # MongoDB Services
   mongo_db:
     container_name: db_container
-    image: mongo
+    image: mongo:7.0.0-rc8-jammy
     restart: always
     ports:
       - 27017:27017 # Corrected port mapping from 2717 to 27017
@@ -16,7 +16,7 @@ services:
 # MongoDB GUI
   mongo-express:
     container_name: express_container
-    image: mongo-express
+    image: mongo-express:1.0.0-alpha
     restart: always
     ports:
       - 8081:8081
