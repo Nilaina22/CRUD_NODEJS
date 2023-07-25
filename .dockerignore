@@ -2,3 +2,4 @@
 Dockerfile
 .dockerignore
 compmose.yml
+Jenkinsfile
